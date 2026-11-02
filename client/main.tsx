@@ -64,9 +64,16 @@ function Record({ project: p, offset, flipped, reduce, direction, opening, onSel
           <div className="vinyl-sheen" />
           <div className="deadwax"><span>SOURCE INDEX — {p.id} — ORIGINAL PRESSING</span><span>CODE ARCHIVE / {p.year} / SIDE A</span></div>
           <div className="center-label">
-            <div className="label-top"><Octocat/><span>NO.{p.id}<br/>SOURCE RECORDS</span></div>
-            <div className="label-title"><h3>{p.title}</h3><p>{p.subtitle}</p></div>
-            <div className="label-bottom"><span className="language-badge">{p.language}</span><span>{p.private ? 'PRIVATE' : `★ ${count(p.stars)}`}<br/>33⅓ RPM</span></div>
+            <svg className="label-inscription" viewBox="0 0 240 240" aria-hidden="true">
+              <defs><path id={`label-ring-${p.id}`} d="M120,120 m-105,0 a105,105 0 1,1 210,0 a105,105 0 1,1 -210,0"/></defs>
+              <text><textPath href={`#label-ring-${p.id}`} textLength="654" lengthAdjust="spacing">ALL RIGHTS RESERVED · CRAFTED BY LECLERCCC777 · DIGITAL VINYL PRESSING · </textPath></text>
+            </svg>
+            <div className="label-imprint"><Octocat/><span>SOURCE // INDEX<br/>ARCHIVE</span></div>
+            <p className="label-subtitle">{p.subtitle}</p>
+            <div className="label-spec label-spec-left"><span>SIDE A</span><span>33⅓ RPM</span></div>
+            <div className="label-spec label-spec-right"><span>CAT. NO.</span><span>SRC-{p.id}</span></div>
+            <div className="label-title"><h3>{p.title}</h3></div>
+            <div className="label-colophon"><span>{p.language}</span><span>STEREO · {p.private ? 'PRIVATE ARCHIVE' : 'OPEN SOURCE'}</span></div>
           </div>
           <span className="spindle-hole" />
         </div>
@@ -234,7 +241,7 @@ function App() {
           </div>
           <div className="meta-data"><span className="section-label">03 / 实时指标 <em>SESSION DATA</em></span>
             <dl>{[['星标 / STARS', count(p.stars)], ['分支 / FORKS', count(p.forks)], ['主要语言 / LANGUAGE', p.language], ['最近更新 / UPDATED', relative(p.recent)]].map(([label, value]) =>
-              <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
+              <div key={label}><dt>{label}</dt><dd className={label.includes("STARS") || label.includes("FORKS") ? "stat-number" : "stat-text"}>{value}</dd></div>)}</dl>
             <p className="data-note">{p.private ? 'PRIVATE PRESSING / 仅名称与简介公开' : `PUBLIC PRESSING / ${syncLabel}`}</p>
           </div>
         </section>
