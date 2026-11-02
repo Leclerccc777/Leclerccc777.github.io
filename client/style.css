@@ -416,3 +416,20 @@ footer p { font-size: 32px; font-weight: 400; }
   .row-name em { font-size: 15px; }
   .project-row > span:not(.row-name) { font-size: 10px; }
 }
+
+/* Picture-disc ink sits below physical grooves, specular light and the printed label. */
+.record-art {
+  position: absolute; inset: 1.5%; width: 97%; height: 97%; object-fit: cover;
+  border-radius: 50%; pointer-events: none; user-select: none; opacity: .93;
+  mask-image: radial-gradient(circle closest-side,#000 0 90%,transparent 100%);
+  will-change: transform;
+}
+.has-cover .grooves { opacity: .32; }
+.has-cover .vinyl-sheen { opacity: .65; }
+.has-cover .deadwax { opacity: .6; }
+.record-art { z-index: 0; }
+.grooves { z-index: 1; pointer-events: none; }
+.vinyl-sheen { z-index: 2; }
+.deadwax { z-index: 3; pointer-events: none; }
+.center-label { z-index: 4; }
+.spindle-hole { z-index: 5; }

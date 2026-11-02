@@ -4,6 +4,7 @@ import { motion, useAnimationFrame, useMotionValue, useReducedMotion, type PanIn
 import { initialProjects, owner, count, relative, https, projectHash, indexFromHash, type Project } from './projects';
 import { mergeProjects, syncProjects, type SyncState } from './github';
 import { playSwitch, playFlip, playOpen, setAudioEnabled, suspendAudio } from './audio';
+import { projectCovers } from './covers';
 import './style.css';
 
 function Octocat() {
@@ -59,7 +60,8 @@ function Record({ project: p, offset, flipped, reduce, direction, opening, onSel
       }} onPointerLeave={resetTilt}>
       <motion.div className="record-flip" animate={{ rotateY: flipped ? 180 : 0 }}
         transition={reduce ? { duration: 0 } : { duration: 0.85, ease: [0.22, 1, 0.36, 1] }}>
-        <div className="vinyl-face vinyl-front" aria-hidden={flipped} onClick={onSelect}>
+        <div className={`vinyl-face vinyl-front ${projectCovers[p.name] ? "has-cover" : ""}`} aria-hidden={flipped} onClick={onSelect}>
+          {projectCovers[p.name] && <motion.img className="record-art" src={projectCovers[p.name]} alt="" aria-hidden="true" draggable={false} decoding="async" style={{ rotate: spin }} />}
           <motion.div className="grooves" style={{ rotate: spin }} />
           <div className="vinyl-sheen" />
           <div className="deadwax"><span>SOURCE INDEX — {p.id} — ORIGINAL PRESSING</span><span>CODE ARCHIVE / {p.year} / SIDE A</span></div>
